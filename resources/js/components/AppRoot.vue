@@ -14,7 +14,7 @@
                 👪 Users
             </router-link>
             <div class="ml-auto flex items-center gap-4" v-if="user">
-                <router-link :to="`/@${user.name}`" class="text-teal-50 hover:text-white text-sm cursor-pointer flex items-center gap-2 p-1">
+                <router-link :to="{name: 'user', params: {username: user.name}}" class="text-teal-50 hover:text-white text-sm cursor-pointer flex items-center gap-2 p-1">
                     <img class="rounded-full w-6 h-6"
                         :src="`${user.gravatar}&s=24`"
                         :srcset="`${user.gravatar}&s=48 2x`"

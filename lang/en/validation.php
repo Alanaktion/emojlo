@@ -148,8 +148,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'body' => [
+            'regex' => 'Only Emoji, spaces, and new lines are allowed.',
+        ],
+        'name' => [
+            'regex' => 'Only Emoji is allowed.',
         ],
     ],
 

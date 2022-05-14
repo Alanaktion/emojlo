@@ -35,6 +35,7 @@ const routes = [
         component: Users,
     },
     {
+        name: 'user',
         path: '/@:username',
         component: User,
         props: true,

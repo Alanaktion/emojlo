@@ -2,7 +2,7 @@
     <h1 class="text-2xl mb-4">Users</h1>
     <ul>
         <li v-for="user in users" :key="user.id">
-            <router-link :to="`/@${user.name}`" class="flex items-center gap-2 cursor-pointer">
+            <router-link :to="{name: 'user', params: {username: user.name}}" class="flex items-center gap-2 cursor-pointer">
                 <img class="rounded-full w-8 h-8"
                     :src="`${user.gravatar}&s=32`"
                     :srcset="`${user.gravatar}&s=64 2x`"

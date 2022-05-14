@@ -6,7 +6,7 @@
             alt>
         <div class="flex-1">
             <header class="flex items-center gap-2 text-sm mb-1">
-                <router-link :to="`/@${post.user.name}`">
+                <router-link :to="{name: 'user', params: {username: post.user.name}}">
                     {{ post.user.name }}
                 </router-link>
                 <router-link :to="`/posts/${post.id}`" class="text-slate-600 dark:text-gray-400">

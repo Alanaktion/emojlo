@@ -58,7 +58,7 @@ export default {
         const isMe = computed(() => username.value === me.value?.name);
 
         const fetchUser = () => {
-            axios.get(`/api/users/${username.value}`).then(response => {
+            axios.get(`/api/users/${encodeURI(username.value)}`).then(response => {
                 user.value = response.data;
             }).catch(() => {
                 user.value = null;
@@ -70,7 +70,7 @@ export default {
         const postCount = ref(null);
         const posts = ref([]);
         const fetchPosts = () => {
-            axios.get(`/api/users/${username.value}/posts`).then(response => {
+            axios.get(`/api/users/${encodeURI(username.value)}/posts`).then(response => {
                 postCount.value = response.data.total;
                 posts.value = response.data.data;
                 // TODO: paginate on scroll
