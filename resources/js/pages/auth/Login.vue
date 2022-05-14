@@ -1,8 +1,8 @@
 <template>
-    <form @submit.prevent="submit" class="max-w-sm my-12 mx-auto p-6 sm:p-8 bg-white border rounded">
+    <form @submit.prevent="submit" class="max-w-sm my-12 mx-auto p-6 sm:p-8 bg-white dark:bg-gray-800 border rounded">
         <div class="mb-4">
             <label for="email" class="block font-bold mb-1">Email</label>
-            <input type="email" required class="w-full rounded border-gray-300 dark:border-gray-700" name="email" id="email" autocomplete="email" v-model="email">
+            <input type="email" required class="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-900" name="email" id="email" autocomplete="email" v-model="email">
             <ul class="text-red-500 list-disc list-inside mt-2" v-if="errors.email">
                 <li :key="error" v-for="error in errors.email">{{ error }}</li>
             </ul>
@@ -10,7 +10,7 @@
 
         <div class="mb-4">
             <label for="password" class="block font-bold mb-1">Password</label>
-            <input type="password" required class="w-full rounded border-gray-300 dark:border-gray-700" name="password" id="password" autocomplete="new-password" v-model="password">
+            <input type="password" required class="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-900" name="password" id="password" autocomplete="new-password" v-model="password">
             <ul class="text-red-500 list-disc list-inside mt-2" v-if="errors.password">
                 <li :key="error" v-for="error in errors.password">{{ error }}</li>
             </ul>

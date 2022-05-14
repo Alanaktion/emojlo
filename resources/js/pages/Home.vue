@@ -1,17 +1,17 @@
 <template>
-    <header class="bg-white p-6 sm:p-12 mb-8 border rounded" v-if="!user">
+    <header class="bg-white dark:bg-gray-800 p-6 sm:p-12 mb-8 border rounded" v-if="!user">
         <p class="text-lg font-medium mb-6">Sign up to join a weird social network!</p>
         <router-link to="/register" class="bg-indigo-500 text-white hover:bg-indigo-600 text-lg font-bold px-4 py-2 rounded">
             Join 👋
         </router-link>
     </header>
-    <header class="bg-white p-4 mb-8 border rounded" v-else>
+    <header class="bg-white dark:bg-gray-800 p-4 mb-8 border rounded" v-else>
         <PostForm @submit="loadFirstPage" />
     </header>
 
     <h2 class="text-lg font-medium" v-if="!user">Recent posts</h2>
 
-    <div class="bg-white border rounded">
+    <div class="bg-white dark:bg-gray-800 border rounded">
         <PostCard
             v-for="post in posts"
             class="p-4 border-t first:border-t-0"

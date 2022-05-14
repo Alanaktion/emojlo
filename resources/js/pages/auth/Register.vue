@@ -1,11 +1,11 @@
 <template>
-    <form @submit.prevent="submit" class="max-w-sm my-12 mx-auto p-6 sm:p-8 bg-white border rounded">
+    <form @submit.prevent="submit" class="max-w-sm my-12 mx-auto p-6 sm:p-8 bg-white dark:bg-gray-800 border rounded">
         <div class="mb-4">
             <div class="block mb-1">
                 <label for="name" class="font-bold mr-2">Username</label>
-                <span id="name-desc" class="text-gray-500 text-sm">Emoji-only, must be unique</span>
+                <span id="name-desc" class="text-slate-600 dark:text-gray-400 text-sm">Emoji-only, must be unique</span>
             </div>
-            <input type="text" required class="w-full border-gray-300 dark:border-gray-700 rounded" name="name" id="name" autocomplete="username" v-model="name" aria-describedby="name-desc">
+            <input type="text" required class="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-900" name="name" id="name" autocomplete="username" v-model="name" aria-describedby="name-desc">
             <ul class="text-red-500 list-disc list-inside mt-2" v-if="errors.name">
                 <li :key="error" v-for="error in errors.name">{{ error }}</li>
             </ul>
@@ -13,7 +13,7 @@
 
         <div class="mb-4">
             <label for="email" class="font-bold block mb-1">Email</label>
-            <input type="email" required class="w-full border-gray-300 dark:border-gray-700 rounded" name="email" id="email" autocomplete="email" v-model="email">
+            <input type="email" required class="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-900" name="email" id="email" autocomplete="email" v-model="email">
             <ul class="text-red-500 list-disc list-inside mt-2" v-if="errors.email">
                 <li :key="error" v-for="error in errors.email">{{ error }}</li>
             </ul>
@@ -21,7 +21,7 @@
 
         <div class="mb-4">
             <label for="password" class="font-bold block mb-1">Password</label>
-            <input type="password" required class="w-full border-gray-300 dark:border-gray-700 rounded" name="password" id="password" autocomplete="new-password" v-model="password">
+            <input type="password" required class="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-900" name="password" id="password" autocomplete="new-password" v-model="password">
             <ul class="text-red-500 list-disc list-inside mt-2" v-if="errors.password">
                 <li :key="error" v-for="error in errors.password">{{ error }}</li>
             </ul>
@@ -29,7 +29,7 @@
 
         <div class="mb-4">
             <label for="password_confirmation" class="font-bold block mb-1">Confirm password</label>
-            <input type="password" required class="w-full border-gray-300 dark:border-gray-700 rounded" name="password_confirmation" id="password_confirmation" autocomplete="new-password" v-model="passwordConfirmation">
+            <input type="password" required class="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-900" name="password_confirmation" id="password_confirmation" autocomplete="new-password" v-model="passwordConfirmation">
         </div>
 
         <div class="mt-6">

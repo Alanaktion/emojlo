@@ -7,7 +7,7 @@
                 alt>
 
             <div class="flex-1">
-                <textarea ref="inputRef" required class="w-full rounded border-gray-300 dark:border-gray-700" placeholder="What's up?" v-model="body" />
+                <textarea ref="inputRef" required class="w-full rounded border-gray-300 dark:border-gray-700 dark:bg-gray-900" placeholder="What's up?" v-model="body" />
                 <ul class="text-red-500 list-disc list-inside mt-2" v-if="errors.body">
                     <li :key="error" v-for="error in errors.body">{{ error }}</li>
                 </ul>
@@ -18,7 +18,7 @@
             <button type="submit" class="bg-indigo-500 text-white border border-indigo-500 hover:bg-indigo-600 hover:border-indigo-600 font-bold tracking-tight px-3 py-1 rounded" :disabled="loading">
                 Post
             </button>
-            <button type="button" @click="$emit('cancel')" class="bg-white text-indigo-500 border hover:bg-indigo-50 font-bold tracking-tight px-3 py-1 rounded">
+            <button type="reset" @click="$emit('cancel')" class="bg-white dark:bg-gray-800 text-indigo-500 dark:text-gray-200 border hover:bg-indigo-50 hover:dark:bg-gray-700 font-bold tracking-tight px-3 py-1 rounded">
                 Cancel
             </button>
         </div>

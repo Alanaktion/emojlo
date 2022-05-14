@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-teal-500 text-white py-4 sm:py-6 mb-6">
+    <nav class="bg-teal-500 dark:bg-teal-700 text-white py-4 sm:py-6 mb-6">
         <div class="max-w-3xl mx-auto px-4 flex items-center gap-4">
             <router-link to="/" class="text-xl font-bold tracking-tight">
                 {{ appName }}
@@ -21,7 +21,7 @@
                         alt>
                     {{ user.name }}
                 </router-link>
-                <button type="button" @click="postDialogOpen = true" class="text-teal-50 hover:text-indigo-500 hover:bg-white text-sm font-bold cursor-pointer px-3 py-1 border border-white rounded">
+                <button type="button" @click="postDialogOpen = true" class="text-teal-50 hover:text-indigo-500 dark:hover:text-white hover:bg-white hover:dark:bg-indigo-500 text-sm font-bold cursor-pointer px-3 py-1 border border-white dark:border-teal-100 hover:dark:border-indigo-100 rounded">
                     Post
                 </button>
             </div>
@@ -29,7 +29,7 @@
                 <router-link to="/login" class="text-teal-50 hover:text-white text-sm cursor-pointer p-1">
                     Sign in
                 </router-link>
-                <router-link to="/register" class="text-teal-50 hover:text-indigo-500 hover:bg-white text-sm font-bold cursor-pointer px-3 py-1 border border-white rounded">
+                <router-link to="/register" class="text-teal-50 hover:text-indigo-500 hover:bg-white hover:dark:bg-teal-500 text-sm font-bold cursor-pointer px-3 py-1 border border-white dark:border-teal-100 rounded">
                     Join 👋
                 </router-link>
             </div>

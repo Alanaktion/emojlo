@@ -9,7 +9,7 @@
                 <router-link :to="`/@${post.user.name}`">
                     {{ post.user.name }}
                 </router-link>
-                <router-link :to="`/posts/${post.id}`" class="text-gray-500">
+                <router-link :to="`/posts/${post.id}`" class="text-slate-600 dark:text-gray-400">
                     {{ formatDateTime(post.created_at) }}
                 </router-link>
                 <button @click="deletePost" class="ml-auto text-red-500" v-if="isMine">

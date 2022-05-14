@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white border rounded">
+    <div class="bg-white dark:bg-gray-800 border rounded">
         <PostCard
             class="p-4"
             :key="post.id"

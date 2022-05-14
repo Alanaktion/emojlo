@@ -1,6 +1,6 @@
 <template>
     <h1 class="text-2xl mb-4">Recent posts</h1>
-    <div class="bg-white border rounded">
+    <div class="bg-white dark:bg-gray-800 border rounded">
         <PostCard
             v-for="post in posts"
             class="p-4 border-t first:border-t-0"
