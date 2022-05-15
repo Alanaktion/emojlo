@@ -1,4 +1,4 @@
-const baseUrl = 'http://emojlo.test/api/';
+const baseUrl = 'https://emojlo.phpizza.com/api/';
 let authToken;
 
 export function setToken(token) {

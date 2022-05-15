@@ -29,11 +29,11 @@ export default function UserScreen({ navigation }) {
       <FlatList
         style={{ flex: 1, alignSelf: 'stretch' }}
         data={posts}
-        renderItem={({ item }) => PostCard({
-          item,
-          themeTextStyle,
-          onPostPress: () => navigation.push('Post', { id: item.id }),
-        })}
+        renderItem={({ item }) => <PostCard
+          item={item}
+          themeTextStyle={themeTextStyle}
+          onPostPress={() => navigation.push('Post', { id: item.id })}
+        />}
         keyExtractor={item => item.id}
         onRefresh={fetchPosts}
         refreshing={refreshing}

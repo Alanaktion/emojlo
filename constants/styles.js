@@ -49,4 +49,18 @@ export default styles = StyleSheet.create({
     backgroundColor: '#1f2937',
     borderColor: '#4b5563',
   },
+  postCard: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    borderBottomWidth: 0.5,
+  },
+  lightPostCard: {
+    backgroundColor: '#fff',
+    borderBottomColor: '#e2e8f0',
+  },
+  darkPostCard: {
+    backgroundColor: '#0004',
+    borderBottomColor: '#374151',
+  },
 });

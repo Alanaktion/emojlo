@@ -1,10 +1,13 @@
 import * as React from 'react'
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
+import styles from '../constants/styles';
 
 export default function PostCard({ item, themeTextStyle, onUserPress, onPostPress }) {
+  const colorScheme = useColorScheme();
+  const themePostCard = colorScheme === 'light' ? styles.lightPostCard : styles.darkPostCard;
   const dateTime = new Date(item.created_at).toLocaleString();
   return (
-    <View style={{ paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row' }}>
+    <View style={[styles.postCard, themePostCard]}>
       <TouchableOpacity onPress={onUserPress}>
         <Image source={{ uri: item.user.gravatar }} style={{ width: 32, height: 32, borderRadius: 16 }} />
       </TouchableOpacity>

@@ -21,8 +21,10 @@ export default function PostModalScreen({ navigation }) {
       if (post.id) {
         navigation.pop();
       } else if (post.message) {
+        console.warn(post);
         alert(post.message);
       } else {
+        console.warn(post);
         alert('Error submitting post');
       }
     } catch {

@@ -42,6 +42,8 @@ export default function SignInScreen({ navigation }) {
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
+        autoCapitalize="none"
+        autoCorrect={false}
         autoComplete="password"
         secureTextEntry
       />
@@ -52,6 +54,7 @@ export default function SignInScreen({ navigation }) {
       />
       <View style={{ height: 5 }} />
       <TouchableOpacity
+        style={{ padding: 5 }}
         onPress={() => navigation.navigate('SignUp')}>
         <Text style={themeTextStyle}>Need an account?</Text>
       </TouchableOpacity>

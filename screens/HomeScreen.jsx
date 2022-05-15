@@ -32,22 +32,26 @@ export default function HomeScreen({ navigation }) {
       <FlatList
         style={{ flex: 1, alignSelf: 'stretch' }}
         data={posts}
-        renderItem={({ item }) => PostCard({
-          item,
-          themeTextStyle,
-          onUserPress: () => navigation.push('User', { username: item.user.name }),
-          onPostPress: () => navigation.push('Post', { id: item.id }),
-        })}
+        renderItem={({ item }) => <PostCard
+          item={item}
+          themeTextStyle={themeTextStyle}
+          onUserPress={() => navigation.push('User', { username: item.user.name })}
+          onPostPress={() => navigation.push('Post', { id: item.id })}
+        />}
         keyExtractor={item => item.id}
         ListFooterComponent={() => (
-          <View style={{ margin: 10 }}>
-            <Button
-              title="Sign out"
-              onPress={() => signOut()}
-              color={themeAccent}
-            />
-          </View>
+          <>
+            <View style={{ height: 0.5, backgroundColor: '#7774' }} />
+            <View style={{ margin: 10 }}>
+              <Button
+                title="Sign out"
+                onPress={() => signOut()}
+                color={themeAccent}
+              />
+            </View>
+          </>
         )}
+        ItemSeparatorComponent={() => <View style={{ height: 0.5, backgroundColor: '#7774' }} />}
         onRefresh={fetchPosts}
         refreshing={refreshing}
       />

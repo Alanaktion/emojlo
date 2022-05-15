@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Button, useColorScheme } from 'react-native';
+import { TouchableOpacity, useColorScheme } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 import styles from '../constants/styles';
 import { AuthContext } from '../api/providers';
 import { setToken, signIn, signOut } from '../api/rest';
@@ -20,13 +21,19 @@ function HomeStackNavigation() {
     colorScheme === 'light' ? styles.lightThemePrimary.color : styles.darkThemePrimary.color;
   return (
     <HomeStack.Navigator screenOptions={({ navigation }) => ({
-      headerRight: () => <Button
-        onPress={() => navigation.push('PostModal')}
-        color={themePrimary}
-        title="Post"
-      />,
+      headerRight: () => <TouchableOpacity onPress={() => navigation.push('PostModal')}>
+        <Ionicons
+          name="ios-create-outline"
+          size={24}
+          color={themePrimary}
+        />
+      </TouchableOpacity>,
     })}>
-      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: 'Emojlo' }}
+      />
       <HomeStack.Screen
         name="User"
         component={UserScreen}
@@ -116,6 +123,7 @@ export default function Navigation({ navigation }) {
             setToken(tokenResponse.token);
             dispatch({ type: 'SIGN_IN', token: tokenResponse.token });
           } else {
+            console.warn(tokenResponse);
             alert('Failed to sign in, check your credentials and try again');
           }
         } catch {
@@ -131,6 +139,7 @@ export default function Navigation({ navigation }) {
       },
       signUp: async (data) => {
         // TODO: handle registration and token creation in this flow
+        alert('Sign-up is not yet support in-app, please sign up on the website');
         dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
       },
     }),
