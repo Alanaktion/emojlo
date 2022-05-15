@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\TokensController;
 use App\Http\Controllers\UserPostsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
@@ -24,3 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('users', UsersController::class);
 Route::apiResource('posts', PostsController::class)->except(['update']);
 Route::apiResource('users.posts', UserPostsController::class)->only(['index']);
+Route::apiResource('tokens', TokensController::class)->except(['update']);
