@@ -41,12 +41,12 @@ export default styles = StyleSheet.create({
   },
   lightThemeTextInput: {
     color: '#1e293b',
-    backgroundColor: '#f1f5f9',
+    backgroundColor: '#f8fafc',
     borderColor: '#9ca3af',
   },
   darkThemeTextInput: {
     color: '#f3f4f6',
-    backgroundColor: '#111827',
+    backgroundColor: '#1f2937',
     borderColor: '#4b5563',
   },
 });

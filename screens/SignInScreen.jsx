@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, KeyboardAvoidingView, Platform, Text, TextInput, useColorScheme, View } from 'react-native';
+import { Button, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
 import styles from '../constants/styles';
 import { AuthContext } from '../api/providers';
 
@@ -16,7 +16,7 @@ export default function SignInScreen({ navigation }) {
     colorScheme === 'light' ? styles.lightContainer : styles.darkContainer;
   const inputStyle =
     colorScheme === 'light' ? styles.lightThemeTextInput : styles.darkThemeTextInput;
-  const themeAccent =
+  const themePrimary =
     colorScheme === 'light' ? styles.lightThemePrimary.color : styles.darkThemePrimary.color;
 
   return (
@@ -48,13 +48,13 @@ export default function SignInScreen({ navigation }) {
       <Button
         title="Sign in"
         onPress={() => signIn({ email, password })}
-        color={themeAccent}
+        color={themePrimary}
       />
-      <Button
-        title="Need an account?"
-        onPress={() => navigation.push('SignUp')}
-        color={themeAccent}
-      />
+      <View style={{ height: 5 }} />
+      <TouchableOpacity
+        onPress={() => navigation.navigate('SignUp')}>
+        <Text style={themeTextStyle}>Need an account?</Text>
+      </TouchableOpacity>
     </KeyboardAvoidingView>
   );
 }

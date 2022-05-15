@@ -1,23 +1,43 @@
 import * as React from 'react';
-import { useColorScheme } from 'react-native';
+import { Button, useColorScheme } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from '../constants/styles';
 import { AuthContext } from '../api/providers';
+import { setToken, signIn, signOut } from '../api/rest';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import HomeScreen from '../screens/HomeScreen';
 import UserScreen from '../screens/UserScreen';
 import PostScreen from '../screens/PostScreen';
+import PostModalScreen from '../screens/PostModalScreen';
 
 const HomeStack = createNativeStackNavigator();
 function HomeStackNavigation() {
+  const colorScheme = useColorScheme();
+  const themePrimary =
+    colorScheme === 'light' ? styles.lightThemePrimary.color : styles.darkThemePrimary.color;
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator screenOptions={({ navigation }) => ({
+      headerRight: () => <Button
+        onPress={() => navigation.push('PostModal')}
+        color={themePrimary}
+        title="Post"
+      />,
+    })}>
       <HomeStack.Screen name="Home" component={HomeScreen} />
-      <HomeStack.Screen name="User" component={UserScreen} options={({ route }) => ({ title: route.params.username })} />
+      <HomeStack.Screen
+        name="User"
+        component={UserScreen}
+        options={({ route }) => ({ title: route.params.username })}
+      />
       <HomeStack.Screen name="Post" component={PostScreen} />
+      <HomeStack.Screen
+        name="PostModal"
+        component={PostModalScreen}
+        options={{ presentation: 'modal', headerRight: null, title: 'New Post' }}
+      />
     </HomeStack.Navigator>
   );
 }
@@ -25,7 +45,7 @@ function HomeStackNavigation() {
 const AuthStack = createNativeStackNavigator();
 function AuthStackNavigation() {
   return (
-    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+    <AuthStack.Navigator screenOptions={{ headerShown: false, animation: 'fade' }}>
       <AuthStack.Screen name="SignIn" component={SignInScreen} />
       <AuthStack.Screen name="SignUp" component={SignUpScreen} />
     </AuthStack.Navigator>
@@ -71,6 +91,7 @@ export default function Navigation({ navigation }) {
 
       try {
         userToken = await SecureStore.getItemAsync('userToken');
+        setToken(userToken);
       } catch (e) {
         // Restoring token failed
       }
@@ -88,20 +109,28 @@ export default function Navigation({ navigation }) {
   const authContext = React.useMemo(
     () => ({
       signIn: async (data) => {
-        // In a production app, we need to send some data (usually email, password) to server and get a token
-        // We will also need to handle errors if sign in failed
-        // After getting token, we need to persist the token using `SecureStore`
-        // In the example, we'll use a dummy token
-
-        dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+        try {
+          const tokenResponse = await signIn(data);
+          if (tokenResponse.token) {
+            await SecureStore.setItemAsync('userToken', tokenResponse.token);
+            setToken(tokenResponse.token);
+            dispatch({ type: 'SIGN_IN', token: tokenResponse.token });
+          } else {
+            alert('Failed to sign in, check your credentials and try again');
+          }
+        } catch {
+          alert('Connection error, please try again');
+        }
       },
-      signOut: () => dispatch({ type: 'SIGN_OUT' }),
+      signOut: async () => {
+        try {
+          await signOut();
+        } catch {}
+        await SecureStore.deleteItemAsync('userToken');
+        dispatch({ type: 'SIGN_OUT' });
+      },
       signUp: async (data) => {
-        // In a production app, we need to send user data to server and get a token
-        // We will also need to handle errors if sign up failed
-        // After getting token, we need to persist the token using `SecureStore`
-        // In the example, we'll use a dummy token
-
+        // TODO: handle registration and token creation in this flow
         dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
       },
     }),
@@ -128,7 +157,7 @@ export default function Navigation({ navigation }) {
   return (
     <NavigationContainer theme={theme}>
       <AuthContext.Provider value={authContext}>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
           {state.userToken == null ? (
             <Stack.Screen name="AuthRoot" component={AuthStackNavigation} options={{
               animationTypeForReplace: state.isSignout ? 'pop' : 'push',

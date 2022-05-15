@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Button, FlatList, Text, useColorScheme, View } from 'react-native';
+import { Button, FlatList, useColorScheme, View } from 'react-native';
 import styles from '../constants/styles';
 import { AuthContext } from '../api/providers';
 import { getPosts } from '../api/rest';
+import PostCard from '../components/PostCard';
 
 export default function HomeScreen({ navigation }) {
   const colorScheme = useColorScheme();
@@ -31,35 +32,21 @@ export default function HomeScreen({ navigation }) {
       <FlatList
         style={{ flex: 1, alignSelf: 'stretch' }}
         data={posts}
-        renderItem={({ item }) => (
-          <View style={{ paddingVertical: 10, paddingHorizontal: 20 }}>
-            <Text style={themeTextStyle}>{item.user.name}</Text>
-            <Text style={themeTextStyle}>{item.body}</Text>
-          </View>
-        )}
+        renderItem={({ item }) => PostCard({
+          item,
+          themeTextStyle,
+          onUserPress: () => navigation.push('User', { username: item.user.name }),
+          onPostPress: () => navigation.push('Post', { id: item.id }),
+        })}
         keyExtractor={item => item.id}
-        ListHeaderComponent={() => (
-          <>
-            <Button
-              title="View User"
-              onPress={() => navigation.push('User', { username: '🙃' })}
-              color={themeAccent}
-            />
-            <Button
-              title="View Post"
-              onPress={() => navigation.push('Post', { id: Math.floor(Math.random() * 1e6) })}
-              color={themeAccent}
-            />
-          </>
-        )}
         ListFooterComponent={() => (
-          <>
+          <View style={{ margin: 10 }}>
             <Button
               title="Sign out"
               onPress={() => signOut()}
               color={themeAccent}
             />
-          </>
+          </View>
         )}
         onRefresh={fetchPosts}
         refreshing={refreshing}
