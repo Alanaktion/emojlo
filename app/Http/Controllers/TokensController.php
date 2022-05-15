@@ -55,10 +55,11 @@ class TokensController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request, string $token)
+    public function destroy(Request $request, int $token)
     {
         $this->middleware('auth:sanctum');
-        $request->user()->tokens()->where('id', $token)->delete();
+        $token = $request->user()->tokens()->findOrFail($token);
+        $token->delete();
         return response()->json(null, 204);
     }
 }
