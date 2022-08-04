@@ -25,40 +25,29 @@
     </form>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { user } from '../functions';
 
-export default {
-    props: ['inputRef'],
-    setup(props, { emit }) {
-        const body = ref('');
-        const errors = ref({});
-        const inputRef = props.inputRef || ref(null);
-        const loading = ref(false);
-        const submit = () => {
-            loading.value = true;
-            axios.post('/api/posts', {
-                body: body.value,
-            }).then(response => {
-                body.value = '';
-                loading.value = false;
-                emit('submitted');
-            }).catch(error => {
-                if (error.response?.status === 422) {
-                    errors.value = error.response.data.errors;
-                }
-                loading.value = false;
-            });
-        };
-        return {
-            body,
-            errors,
-            inputRef,
-            loading,
-            submit,
-            user,
-        };
-    },
+const props = defineProps(['inputRef']);
+
+const body = ref('');
+const errors = ref({});
+const inputRef = props.inputRef || ref(null);
+const loading = ref(false);
+const submit = () => {
+    loading.value = true;
+    axios.post('/api/posts', {
+        body: body.value,
+    }).then(() => {
+        body.value = '';
+        loading.value = false;
+        emit('submitted');
+    }).catch(error => {
+        if (error.response?.status === 422) {
+            errors.value = error.response.data.errors;
+        }
+        loading.value = false;
+    });
 };
 </script>

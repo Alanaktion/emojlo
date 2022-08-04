@@ -23,37 +23,27 @@
     </article>
 </template>
 
-<script>
+<script setup>
 import { computed, ref } from 'vue';
 import { formatDateTime, user } from '../functions';
 
-export default {
-    props: {
-        post: {
-            type: Object,
-            required: true,
-        },
+const props = defineProps({
+    post: {
+        type: Object,
+        required: true,
     },
-    setup(props, { emit }) {
-        const post = ref(props.post);
-        const isMine = computed(() => post.value.user_id === user.value?.id);
+});
 
-        const deletePost = () => {
-            if (confirm('Are you sure you want to delete this post?')) {
-                axios.post(`/api/posts/${post.value.id}`, {
-                    _method: 'DELETE',
-                }).then(() => {
-                    emit('deleted');
-                });
-            }
-        };
+const post = ref(props.post);
+const isMine = computed(() => post.value.user_id === user.value?.id);
 
-        return {
-            post,
-            isMine,
-            deletePost,
-            formatDateTime,
-        };
-    },
+const deletePost = () => {
+    if (confirm('Are you sure you want to delete this post?')) {
+        axios.post(`/api/posts/${post.value.id}`, {
+            _method: 'DELETE',
+        }).then(() => {
+            emit('deleted');
+        });
+    }
 };
 </script>

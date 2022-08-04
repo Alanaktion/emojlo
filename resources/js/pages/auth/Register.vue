@@ -40,46 +40,33 @@
     </form>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { refreshUser } from '../../functions';
 
-export default {
-    setup() {
-        const router = useRouter();
+const router = useRouter();
 
-        const name = ref('');
-        const email = ref('');
-        const password = ref('');
-        const passwordConfirmation = ref('');
+const name = ref('');
+const email = ref('');
+const password = ref('');
+const passwordConfirmation = ref('');
 
-        const errors = ref({});
+const errors = ref({});
 
-        const submit = () => {
-            axios.post('/register', {
-                name: name.value,
-                email: email.value,
-                password: password.value,
-                password_confirmation: passwordConfirmation.value,
-            }).then(response => {
-                refreshUser();
-                router.push('/');
-            }).catch(error => {
-                if (error.response?.status === 422) {
-                    errors.value = error.response.data.errors;
-                }
-            });
-        };
-
-        return {
-            name,
-            email,
-            password,
-            passwordConfirmation,
-            errors,
-            submit,
-        };
-    },
+const submit = () => {
+    axios.post('/register', {
+        name: name.value,
+        email: email.value,
+        password: password.value,
+        password_confirmation: passwordConfirmation.value,
+    }).then(() => {
+        refreshUser();
+        router.push('/');
+    }).catch(error => {
+        if (error.response?.status === 422) {
+            errors.value = error.response.data.errors;
+        }
+    });
 };
 </script>

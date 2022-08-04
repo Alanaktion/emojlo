@@ -13,21 +13,13 @@
     </ul>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-    setup() {
-        const users = ref([]);
+const users = ref([]);
 
-        axios.get(`/api/users`).then(response => {
-            // TODO: handle pagination
-            users.value = response.data.data;
-        });
-
-        return {
-            users,
-        };
-    },
-};
+axios.get(`/api/users`).then(response => {
+    // TODO: handle pagination
+    users.value = response.data.data;
+});
 </script>

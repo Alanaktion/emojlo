@@ -12,29 +12,14 @@
     </Dialog>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import {
     Dialog,
     DialogPanel,
     DialogTitle,
-    DialogDescription,
 } from '@headlessui/vue';
 import PostForm from './PostForm.vue';
 
-export default {
-    components: {
-        Dialog,
-        DialogPanel,
-        DialogTitle,
-        DialogDescription,
-        PostForm,
-    },
-    setup() {
-        const inputRef = ref(null);
-        return {
-            inputRef,
-        };
-    },
-};
+const inputRef = ref(null);
 </script>

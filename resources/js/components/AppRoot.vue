@@ -41,22 +41,11 @@
     <PostDialog :open="postDialogOpen" @close="postDialogOpen = false" />
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { user } from '../functions';
 import PostDialog from './PostDialog.vue';
 
-export default {
-  components: { PostDialog },
-    setup() {
-        const appName = ref(document.querySelector('title').textContent);
-        const postDialogOpen = ref(false);
-
-        return {
-            appName,
-            user,
-            postDialogOpen,
-        };
-    },
-};
+const appName = ref(document.querySelector('title').textContent);
+const postDialogOpen = ref(false);
 </script>

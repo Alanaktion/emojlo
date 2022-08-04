@@ -36,65 +36,48 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref, watch } from 'vue';
 import PostCard from '../components/PostCard.vue';
 import { formatDate, refreshUser, user as me } from '../functions';
 
-export default {
-    components: {
-        PostCard,
+const props = defineProps({
+    username: {
+        type: String,
+        required: true,
     },
-    props: {
-        username: {
-            type: String,
-            required: true,
-        },
-    },
-    setup(props) {
-        const username = ref(props.username);
-        const user = ref(null);
+});
 
-        const isMe = computed(() => username.value === me.value?.name);
+const username = ref(props.username);
+const user = ref(null);
 
-        const fetchUser = () => {
-            axios.get(`/api/users/${encodeURI(username.value)}`).then(response => {
-                user.value = response.data;
-            }).catch(() => {
-                user.value = null;
-                // TODO: show 404 route
-            });
-        };
-        watch(username, fetchUser, { immediate: true });
+const isMe = computed(() => username.value === me.value?.name);
 
-        const postCount = ref(null);
-        const posts = ref([]);
-        const fetchPosts = () => {
-            axios.get(`/api/users/${encodeURI(username.value)}/posts`).then(response => {
-                postCount.value = response.data.total;
-                posts.value = response.data.data;
-                // TODO: paginate on scroll
-            }).catch(() => {
-                postCount.value = null;
-                posts.value = [];
-            });
-        };
-        watch(username, fetchPosts, { immediate: true });
+const fetchUser = () => {
+    axios.get(`/api/users/${encodeURI(username.value)}`).then(response => {
+        user.value = response.data;
+    }).catch(() => {
+        user.value = null;
+        // TODO: show 404 route
+    });
+};
+watch(username, fetchUser, { immediate: true });
 
-        const edit = async () => {
-            await refreshUser();
-        };
+const postCount = ref(null);
+const posts = ref([]);
+const fetchPosts = () => {
+    axios.get(`/api/users/${encodeURI(username.value)}/posts`).then(response => {
+        postCount.value = response.data.total;
+        posts.value = response.data.data;
+        // TODO: paginate on scroll
+    }).catch(() => {
+        postCount.value = null;
+        posts.value = [];
+    });
+};
+watch(username, fetchPosts, { immediate: true });
 
-        return {
-            username,
-            user,
-            me,
-            isMe,
-            postCount,
-            posts,
-            formatDate,
-            edit,
-        };
-    },
+const edit = async () => {
+    await refreshUser();
 };
 </script>

@@ -24,40 +24,29 @@
     </form>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { refreshUser } from '../../functions';
 
-export default {
-    setup() {
-        const router = useRouter();
+const router = useRouter();
 
-        const email = ref('');
-        const password = ref('');
+const email = ref('');
+const password = ref('');
 
-        const errors = ref({});
+const errors = ref({});
 
-        const submit = () => {
-            axios.post('/login', {
-                email: email.value,
-                password: password.value,
-            }).then(response => {
-                refreshUser();
-                router.push('/');
-            }).catch(error => {
-                if (error.response?.status === 422) {
-                    errors.value = error.response.data.errors;
-                }
-            });
-        };
-
-        return {
-            email,
-            password,
-            errors,
-            submit,
-        };
-    },
+const submit = () => {
+    axios.post('/login', {
+        email: email.value,
+        password: password.value,
+    }).then(() => {
+        refreshUser();
+        router.push('/');
+    }).catch(error => {
+        if (error.response?.status === 422) {
+            errors.value = error.response.data.errors;
+        }
+    });
 };
 </script>

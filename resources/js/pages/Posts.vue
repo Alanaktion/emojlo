@@ -11,25 +11,14 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import PostCard from '../components/PostCard.vue';
 
-export default {
-    components: {
-        PostCard,
-    },
-    setup() {
-        const posts = ref([]);
+const posts = ref([]);
 
-        axios.get(`/api/posts`).then(response => {
-            // TODO: handle pagination
-            posts.value = response.data.data;
-        });
-
-        return {
-            posts,
-        };
-    },
-};
+axios.get(`/api/posts`).then(response => {
+    // TODO: handle pagination
+    posts.value = response.data.data;
+});
 </script>

@@ -22,41 +22,27 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { user } from '../functions';
 import PostCard from '../components/PostCard.vue';
 import PostForm from '../components/PostForm.vue';
 
-export default {
-    components: {
-        PostCard,
-        PostForm,
-    },
-    setup() {
-        const posts = ref([]);
-        const nextPageUrl = ref(null);
-        const loadNextPage = () => {
-            if (nextPageUrl.value) {
-                axios.get(nextPageUrl.value).then(response => {
-                    posts.value = posts.value.concat(response.data.data);
-                    nextPageUrl.value = response.data.next_page_url;
-                });
-            }
-        };
-        const loadFirstPage = () => {
-            axios.get('/api/posts').then(response => {
-                posts.value = response.data.data;
-                nextPageUrl.value = response.data.next_page_url;
-            });
-        };
-        loadFirstPage();
-
-        return {
-            user,
-            posts,
-            loadFirstPage,
-        };
-    },
+const posts = ref([]);
+const nextPageUrl = ref(null);
+const loadNextPage = () => {
+    if (nextPageUrl.value) {
+        axios.get(nextPageUrl.value).then(response => {
+            posts.value = posts.value.concat(response.data.data);
+            nextPageUrl.value = response.data.next_page_url;
+        });
+    }
 };
+const loadFirstPage = () => {
+    axios.get('/api/posts').then(response => {
+        posts.value = response.data.data;
+        nextPageUrl.value = response.data.next_page_url;
+    });
+};
+loadFirstPage();
 </script>
